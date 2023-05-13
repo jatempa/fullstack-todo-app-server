@@ -14,6 +14,7 @@ const typeDefs = gql`
 
   type Query {
     tasks: [Task]
+    pendingTasks: [Task]
   }
 
   type Mutation {
@@ -25,6 +26,7 @@ const typeDefs = gql`
 interface TaskInput {
   title: string;
 }
+
 interface TaskUpdateInput {
   id: string;
 }
@@ -32,6 +34,12 @@ interface TaskUpdateInput {
 const resolvers = {
   Query: {
     tasks: async () => await prisma.task.findMany(),
+    pendingTasks: async () =>
+      await prisma.task.findMany({
+        where: {
+          done: false,
+        },
+      }),
   },
   Mutation: {
     addTask: async (_parent: any, args: TaskInput) => {
