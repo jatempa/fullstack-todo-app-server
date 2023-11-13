@@ -33,7 +33,9 @@ interface TaskUpdateInput {
 
 const resolvers = {
   Query: {
-    tasks: async () => await prisma.task.findMany(),
+    tasks: async () => await prisma.task.findMany({
+      orderBy: { id: 'asc' }
+    }),
     pendingTasks: async () =>
       await prisma.task.findMany({
         where: {
