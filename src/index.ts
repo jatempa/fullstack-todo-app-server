@@ -36,12 +36,11 @@ const resolvers = {
     tasks: async () => await prisma.task.findMany({
       orderBy: { id: 'asc' }
     }),
-    pendingTasks: async () =>
-      await prisma.task.findMany({
-        where: {
-          done: false,
-        },
-      }),
+    pendingTasks: async () => await prisma.task.findMany({
+      where: {
+        done: false,
+      },
+    }),
   },
   Mutation: {
     addTask: async (_parent: any, args: TaskInput) => {
