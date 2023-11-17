@@ -55,7 +55,7 @@ const resolvers = {
     updateTask: async (_parent: any, args: TaskUpdateInput) => {
       const task = await prisma.task.findFirst({
         where: {
-          id: args.id,
+          id: parseInt(args.id),
         },
       });
 
